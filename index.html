@@ -8,169 +8,212 @@
   body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background:#004a99; /* warna biru sesuai background */
+    background: linear-gradient(to bottom, #0057b7, #003d7a); /* Mirip warna biru */
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    height: 100vh;
-    padding-top: 50px;
-    color: #000;
-  }
-  .container {
-    background: #fff;
-    padding: 25px 30px;
-    border-radius: 4px;
-    width: 320px;
-    box-sizing: border-box;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    color: #333;
   }
   .logo {
+    margin: 20px 0 10px 20px;
+    font-weight: bold;
+    font-size: 28px;
+    color: #0057b7;
     display: flex;
     align-items: center;
-    gap: 6px;
-    font-weight: bold;
-    font-size: 24px;
-    color: #0056b3;
-    margin-bottom: 20px;
   }
-  .red-bars {
-    color: #d50000;
-    font-weight: 900;
-    font-size: 28px;
-    letter-spacing: 3px;
+  .logo .red-bars {
+    width: 20px;
+    height: 28px;
+    background: repeating-linear-gradient(
+      to right,
+      #d71920,
+      #d71920 3px,
+      transparent 3px,
+      transparent 6px
+    );
+    margin-right: 10px;
+  }
+  .login-container {
+    background: #fff;
+    border-radius: 4px;
+    width: 320px;
+    max-width: 90%;
+    padding: 20px 30px;
+    box-shadow: 0 0 10px rgb(0 0 0 / 0.1);
+    margin-bottom: 40px;
   }
   .language {
     text-align: right;
-    font-size: 12px;
-    margin-bottom: 12px;
+    font-size: 13px;
+    margin-bottom: 15px;
   }
   .language a {
+    color: #5e5e5e;
     text-decoration: none;
-    color: #0073e6;
-    margin-left: 8px;
+    margin-left: 7px;
+  }
+  .language a:hover {
+    text-decoration: underline;
   }
   h2 {
+    margin: 8px 0 20px 0;
     font-weight: 500;
-    font-size: 18px;
-    margin: 0 0 20px 0;
+    font-size: 20px;
     color: #333;
   }
-  input[type="text"],
-  input[type="password"] {
+  input[type="text"], input[type="password"] {
     width: 100%;
-    padding: 10px 8px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    font-size: 13px;
+    padding: 14px 10px;
+    margin: 6px 0 15px;
     box-sizing: border-box;
-    text-transform: uppercase;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 2px;
     color: #999;
   }
-  input::placeholder {
-    color: #999;
+  input[type="text"]:focus, input[type="password"]:focus {
+    border-color: #0057b7;
+    color: #333;
+    outline: none;
   }
   button {
-    width: 100%;
-    background-color: #0073e6;
-    border: none;
+    background-color: #0072ce;
     color: white;
-    padding: 10px 0;
-    font-size: 15px;
-    font-weight: 600;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    border-radius: 3px;
+    font-size: 16px;
     cursor: pointer;
-    border-radius: 2px;
   }
   button:hover {
-    background-color: #005bb5;
+    background-color: #0057b7;
   }
-  .forgot {
-    margin-top: 10px;
+  .forgot-link, .register-link {
+    color: #0072ce;
     font-size: 13px;
-  }
-  .forgot a {
-    color: #0073e6;
     text-decoration: none;
+    display: inline-block;
+    margin-top: 10px;
   }
-  .register {
-    margin-top: 30px;
-    font-size: 13px;
+  .forgot-link:hover, .register-link:hover {
+    text-decoration: underline;
+  }
+  .register-section {
+    margin-top: 15px;
+    font-size: 14px;
     color: #666;
   }
-  .register a {
-    color: #0073e6;
-    cursor: pointer;
-    text-decoration: none;
-  }
-
+  /* Footer with TMRW logo and apps */
   .footer {
-    margin-top: 80px;
     text-align: center;
-    color: #fff;
-    font-size: 14px;
+    margin-top: auto;
+    margin-bottom: 20px;
   }
-  .footer img,
-  .footer .appstore,
-  .footer .googleplay {
-    margin: 5px 3px 0;
-    vertical-align: middle;
-  }
-  .footer a {
-    color: #aee4ff;
-    text-decoration: none;
-    font-size: 13px;
-  }
-  .footer .uob-icon {
-    background-color: #004a99;
-    vertical-align: middle;
+  .tmrw-logo {
     display: inline-block;
-    padding: 10px 20px;
-    border-radius: 6px;
-    font-weight: 600;
-    font-size: 18px;
+    background-color: #0057b7;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 7px;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 8px;
+    vertical-align: middle;
+    position: relative;
+    line-height: 24px;
   }
-  .footer .tmrw {
-    color: #f94f00;
-    font-weight: 700;
+  .tmrw-logo .red-bars {
+    width: 20px;
+    height: 24px;
+    background: repeating-linear-gradient(
+      to right,
+      #d71920,
+      #d71920 3px,
+      transparent 3px,
+      transparent 6px
+    );
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 6px;
+  }
+  .tmrw-logo span {
+    vertical-align: middle;
+  }
+  .search-box {
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px 10px;
+    margin-left: 10px;
+    vertical-align: middle;
+    font-size: 14px;
+    background: #fff;
+  }
+  .app-icons {
+    margin-top: 8px;
+  }
+  .app-icons img {
+    height: 30px;
+    margin: 0 6px;
+    vertical-align: middle;
+    cursor: pointer;
   }
 </style>
 </head>
 <body>
 
-<div class="container">
-  <div class="logo">
-    <span class="red-bars">|||</span>
-    UOB
-  </div>
+<div class="logo">
+  <div class="red-bars"></div>UOB
+</div>
+
+<div class="login-container" role="main">
   <div class="language">
     <a href="#">English</a> | <a href="#">Bahasa Indonesia</a>
   </div>
   <h2>Welcome to UOB Personal Internet Banking</h2>
-  <form>
-    <input type="text" placeholder="USERNAME" />
-    <input type="password" placeholder="PASSWORD" />
-    <button type="submit">Login</button>
+  
+  <form id="loginForm" action="javascript:void(0);" aria-label="Login form">
+    <input type="text" id="username" name="username" placeholder="USERNAME" aria-label="Username" required autofocus />
+    <input type="password" id="password" name="password" placeholder="PASSWORD" aria-label="Password" required />
+    <button type="submit" id="loginBtn">Login</button>
   </form>
-  <div class="forgot">
-    <a href="#">Forgot Username/Password?</a>
-  </div>
-
-  <div class="register">
+  <a href="#" class="forgot-link">Forgot Username/Password?</a>
+  <div class="register-section">
     Don't have an account?<br />
-    <a href="#">Register now!</a>
+    <a href="#" class="register-link">Register now!</a>
   </div>
 </div>
 
-<div class="footer">
-  <span class="uob-icon">
-    <span class="red-bars">|||</span> UOB <span class="tmrw">TMRW</span><br>ID
-  </span>
-  <div>
-    <a href="https://tmrw.bz/wealth" target="_blank" style="color:#aee4ff; margin-left: 12px;">tmrw.bz/wealth</a>
+<div class="footer" aria-label="Footer and app download">
+  <div class="tmrw-logo" aria-label="TMRW by UOB logo">
+    <div class="red-bars"></div><span>UOB</span> TMRW ID
   </div>
-  <div style="margin-top:8px;">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" style="height:25px;">
-    <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="App Store" style="height:25px; margin-left:8px;">
+  <input type="text" class="search-box" placeholder="tmrw.bz/wealth" aria-label="Search tmrw.bz wealth" />
+  <div class="app-icons">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/67/App_Store_(iOS).svg" alt="App Store" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Google_Play_Arrow_logo.svg" alt="Google Play" />
   </div>
 </div>
+
+<script>
+  document.getElementById('loginForm').addEventListener('submit', function() {
+    var user = document.getElementById('username').value.trim();
+    var pass = document.getElementById('password').value.trim();
+    
+    if (!user || !pass) {
+      alert('Please enter both username and password.');
+      return;
+    }
+    
+    // Contoh alert login
+    alert('Log in submitted for user: ' + user);
+    
+    // Di sini bisa ditambah aksi login sebenarnya
+  });
+</script>
 
 </body>
 </html>

